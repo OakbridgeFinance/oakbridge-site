@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oakbridge Finance — Outsourced Accounting + CFO Services</title>
+<meta name="description" content="CFO-level strategy and accounting services for growing businesses. Fractional CFO, bookkeeping, M&A advisory, and financial planning.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark-teal: #07393C;
+  --terracotta: #C97D60;
+  --mid-teal: #337E8D;
+  --deep-blue: #11455B;
+  --bright-teal: #29A1AF;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --light-gray: #F0EEEB;
+  --text-dark: #1A1A1A;
+  --text-muted: #5A6B6D;
+  --text-light: rgba(255,255,255,0.85);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--text-dark);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(7,57,60,0.06);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(7,57,60,0.08); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { height: 36px; }
+.nav-links { display: flex; gap: 28px; align-items: center; }
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--dark-teal);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--bright-teal); }
+.btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--white);
+  background: var(--terracotta);
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: #b56c52; transform: translateY(-1px); }
+.btn-outline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--dark-teal);
+  background: transparent;
+  padding: 10px 24px;
+  border: 2px solid var(--dark-teal);
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { background: var(--dark-teal); color: var(--white); }
+.btn-white {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--dark-teal);
+  background: var(--white);
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  display: inline-block;
+}
+.btn-white:hover { background: var(--cream); }
+
+/* ── HERO ────────────────────────────────────────── */
+.hero {
+  padding: 160px 32px 120px;
+  background: linear-gradient(170deg, var(--dark-teal) 0%, var(--deep-blue) 60%, var(--mid-teal) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -100px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(201,125,96,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -150px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(41,161,175,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 900px; margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.hero-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 52px; font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.hero p {
+  font-size: 20px;
+  color: var(--text-light);
+  max-width: 620px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+.hero-actions { display: flex; gap: 16px; justify-content: center; }
+
+/* ── SECTIONS ────────────────────────────────────── */
+section { padding: 100px 32px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--dark-teal);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.section-subtitle {
+  font-size: 18px; color: var(--text-muted);
+  max-width: 640px; line-height: 1.7;
+}
+
+/* ── WHAT WE DO ──────────────────────────────────── */
+.what-we-do { background: var(--cream); }
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  margin-top: 60px;
+}
+.service-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 40px 32px;
+  border: 1px solid rgba(7,57,60,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(7,57,60,0.1);
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--terracotta);
+}
+.service-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 20px;
+  line-height: 1.3;
+}
+.service-card ul {
+  list-style: none; padding: 0;
+}
+.service-card li {
+  font-size: 15px;
+  color: var(--text-muted);
+  padding: 8px 0;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.service-card li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+/* ── WHO WE WORK WITH ────────────────────────────── */
+.who-section {
+  text-align: center;
+}
+.who-section .section-subtitle {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+/* ── PROBLEMS WE SOLVE ───────────────────────────── */
+.problems { background: var(--cream); }
+.problems-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  margin-top: 60px;
+}
+.problem-card {
+  padding: 36px;
+  border-radius: 12px;
+  background: var(--white);
+  border: 1px solid rgba(7,57,60,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.problem-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(7,57,60,0.06);
+}
+.problem-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.problem-card p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── TESTIMONIALS ────────────────────────────────── */
+.testimonials {
+  background: linear-gradient(170deg, var(--dark-teal) 0%, var(--deep-blue) 100%);
+  color: var(--white);
+}
+.testimonials .section-label { color: var(--terracotta); }
+.testimonials .section-title { color: var(--white); }
+.testimonials-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  margin-top: 60px;
+}
+.testimonial-card {
+  padding: 36px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.testimonial-card blockquote {
+  font-size: 16px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+.testimonial-author {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--terracotta);
+}
+
+/* ── ABOUT ───────────────────────────────────────── */
+.about-section { background: var(--cream); }
+.about-grid {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 60px;
+  margin-top: 60px;
+  align-items: start;
+}
+.about-photo {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--light-gray);
+  aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 14px;
+  border: 1px solid rgba(7,57,60,0.08);
+}
+.about-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 20px;
+}
+.about-text p {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+.about-credentials {
+  margin-top: 24px;
+  display: flex; gap: 24px; flex-wrap: wrap;
+}
+.credential {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--mid-teal);
+  background: rgba(51,126,141,0.08);
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+/* ── ACORN CALLOUT ───────────────────────────────── */
+.acorn-callout {
+  background: var(--white);
+  border-top: 1px solid rgba(7,57,60,0.06);
+}
+.acorn-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  align-items: center;
+}
+.acorn-text .section-label { color: var(--terracotta); }
+.acorn-text h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.acorn-text p {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.acorn-preview {
+  border-radius: 12px;
+  background: var(--light-gray);
+  min-height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-size: 14px;
+  border: 1px solid rgba(7,57,60,0.08);
+  box-shadow: 0 12px 40px rgba(7,57,60,0.08);
+}
+
+/* ── CTA ─────────────────────────────────────────── */
+.final-cta {
+  background: linear-gradient(170deg, var(--dark-teal) 0%, var(--deep-blue) 100%);
+  text-align: center;
+  padding: 100px 32px;
+}
+.final-cta h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--white);
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.final-cta p {
+  font-size: 18px;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+/* ── CONTACT FORM ────────────────────────────────── */
+.contact-section { background: var(--cream); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+  margin-top: 60px;
+}
+.contact-info h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 16px;
+}
+.contact-info p {
+  font-size: 16px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.contact-detail {
+  font-size: 15px;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+.contact-detail a {
+  color: var(--mid-teal);
+  text-decoration: none;
+}
+.contact-detail a:hover { text-decoration: underline; }
+.contact-form {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.form-row { display: flex; gap: 16px; }
+.form-row > * { flex: 1; }
+.contact-form input,
+.contact-form textarea {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  padding: 14px 16px;
+  border: 1px solid rgba(7,57,60,0.15);
+  border-radius: 8px;
+  background: var(--white);
+  color: var(--text-dark);
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--mid-teal);
+}
+.contact-form textarea { min-height: 120px; resize: vertical; }
+.contact-form .btn-primary {
+  align-self: flex-start;
+  border: none; cursor: pointer;
+  padding: 14px 36px; font-size: 16px;
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  padding: 40px 32px;
+  background: var(--dark-teal);
+  text-align: center;
+}
+footer p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+footer a:hover { color: var(--white); }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero h1 { font-size: 36px; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .services-grid { grid-template-columns: 1fr; }
+  .problems-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .acorn-inner { grid-template-columns: 1fr; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { flex-direction: column; }
+  .nav-links a:not(.btn-primary) { display: none; }
+}
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out forwards;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="/"><img src="Logo_F23.jpg" alt="Oakbridge Finance" class="nav-logo"></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#how-we-help">How We Help</a>
+      <a href="#about">About</a>
+      <a href="/acorn">Acorn</a>
+      <a href="#contact" class="btn-primary">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label animate-in">Outsourced Accounting + CFO Services</div>
+    <h1 class="animate-in delay-1">Built for Growing Businesses.</h1>
+    <p class="animate-in delay-2">You don't need more reports. You need numbers you can trust — so you can make smarter decisions and grow with confidence.</p>
+    <div class="hero-actions animate-in delay-3">
+      <a href="#contact" class="btn-white">Book a Free Consultation</a>
+      <a href="#services" class="btn-outline" style="color:var(--white); border-color: rgba(255,255,255,0.3);">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="what-we-do" id="services">
+  <div class="section-inner">
+    <div class="section-label">What We Do</div>
+    <div class="section-title">CFO-level strategy without the CFO salary.</div>
+    <div class="section-subtitle">We help you make decisions without second-guessing your financials.</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Fractional CFO Strategy</h3>
+        <ul>
+          <li>Trusted partner to CEO / Founder</li>
+          <li>Focus on enterprise value creation</li>
+          <li>Enhance people, process &amp; technology</li>
+          <li>Banking, board, and investor relations</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>Accounting Solutions</h3>
+        <ul>
+          <li>From bookkeeping to full-cycle accounting</li>
+          <li>Enhance internal controls</li>
+          <li>Robust month-end close process</li>
+          <li>Books cleanup &amp; system implementations</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>Transaction Services &amp; Special Projects</h3>
+        <ul>
+          <li>Capital raising &amp; financing</li>
+          <li>M&amp;A / sell-side advisory</li>
+          <li>Software cleanup &amp; implementations</li>
+          <li>Interim CFO &amp; accounting support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE WORK WITH -->
+<section class="who-section">
+  <div class="section-inner">
+    <div class="section-label">Who We Work With</div>
+    <div class="section-title">Small businesses ready to grow up financially.</div>
+    <div class="section-subtitle">Companies with $500K to $20M in revenue that need more visibility, better planning, and the confidence to scale intentionally. We provide the financial clarity to get you there.</div>
+  </div>
+</section>
+
+<!-- HOW WE CAN HELP -->
+<section class="problems" id="how-we-help">
+  <div class="section-inner">
+    <div class="section-label">How We Can Help</div>
+    <div class="section-title">The problems we solve.</div>
+    <div class="problems-grid">
+      <div class="problem-card">
+        <h3>CFO Judgment Without the Full-Time Cost</h3>
+        <p>You need executive-level financial thinking, but a full-time CFO doesn't make sense for your business right now. When you've outgrown basic accounting and need guidance that goes beyond the day-to-day, that's when we step in.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Growth Decisions That Require Both Data and Judgment</h3>
+        <p>As you grow, decisions around cash flow, pricing, and hiring start to carry more risk and get more complex. We help you move forward confidently, with both clear data and an experienced financial perspective behind you.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Timely, Actionable Financial Visibility</h3>
+        <p>Your financials exist — but they're delayed, unclear, or not giving you the insight you actually need. Without the right visibility, it's hard to know what's working, what's not, and what to do next. Let us clear things up.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Removing Gaps in Strategic Planning</h3>
+        <p>You need a clear, reliable financial plan guiding your decisions. Without forecasting and scenario planning, strategy and execution can easily fall out of sync.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Helping Your Financial Infrastructure Keep Up</h3>
+        <p>The systems and processes that got you here are starting to show strain as the business grows. Without stronger foundations, inefficiencies and risks begin to compound behind the scenes. We help you get back on track.</p>
+      </div>
+      <div class="problem-card">
+        <h3>Preparing for a Major Financial Event</h3>
+        <p>When you're approaching a key moment — raising capital, selling, or pursuing a transaction — you need to be fully prepared. That means having the right financial story, structure, and support in place before the stakes get higher.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-label">Client Testimonials</div>
+    <div class="section-title">What our clients say.</div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <blockquote>"Placeholder testimonial — replace with real client testimonial. Talk about specific outcomes, how Oakbridge helped, and why they'd recommend working with Chris."</blockquote>
+        <div class="testimonial-author">— Client Name, Title, Company</div>
+      </div>
+      <div class="testimonial-card">
+        <blockquote>"Placeholder testimonial — replace with real client testimonial. Talk about specific outcomes, how Oakbridge helped, and why they'd recommend working with Chris."</blockquote>
+        <div class="testimonial-author">— Client Name, Title, Company</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-inner">
+    <div class="section-label">About</div>
+    <div class="section-title">About Chris Matheson</div>
+    <div class="about-grid">
+      <div class="about-photo">
+        <!-- Replace with headshot -->
+        [ Headshot ]
+      </div>
+      <div class="about-text">
+        <p>Throughout his 16-year career, Chris has established himself as a trusted business leader in M&amp;A, finance, and accounting. He has led and supported buy- and sell-side M&amp;A transactions from $5M to $5B across all stages of the deal continuum, identified and managed millions in cost savings initiatives, and helped businesses gain insight into profitability in preparation for transactions.</p>
+        <p>Chris integrates technical expertise, strategic thinking, and extensive experience to help small and growing businesses reach their full potential.</p>
+        <div class="about-credentials">
+          <span class="credential">CPA</span>
+          <span class="credential">MBA — Brigham Young University</span>
+          <span class="credential">B.S. Accounting — BYU</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACORN CALLOUT -->
+<section class="acorn-callout">
+  <div class="section-inner">
+    <div class="acorn-inner">
+      <div class="acorn-text">
+        <div class="section-label">Our Technology</div>
+        <h3>Meet Acorn — our QBO data extraction tool.</h3>
+        <p>We built Acorn to solve the reporting problems we ran into with our own clients. It pulls your QuickBooks data into clean, structured workbooks with formatted reports, custom account mapping, flat files for analysis, and built-in validation.</p>
+        <a href="/acorn" class="btn-primary">Learn About Acorn</a>
+      </div>
+      <div class="acorn-preview">
+        <!-- Replace with Acorn screenshot -->
+        [ Acorn Screenshot ]
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>The Financial Brain You Need,<br>When You Need It.</h2>
+  <p>Don't wait until there's a crisis. Worrying about a cash crunch, messy books, or investor pressure takes time away from your business.</p>
+  <a href="#contact" class="btn-white" style="padding: 14px 32px; font-size: 16px;">Book a Free Consultation</a>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Let's talk.</h3>
+        <p>Whether you're looking for a fractional CFO, need help cleaning up your books, or are preparing for a major financial event — we'd love to hear from you.</p>
+        <div class="contact-detail"><strong>Email:</strong> <a href="mailto:chris@oakbridgefinance.com">chris@oakbridgefinance.com</a></div>
+        <div class="contact-detail"><strong>Phone:</strong> <a href="tel:8017060043">801.706.0043</a></div>
+        <div class="contact-detail"><strong>Location:</strong> Dallas-Fort Worth, TX</div>
+      </div>
+      <form class="contact-form" action="#" method="POST">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="form-row">
+          <input type="text" name="company" placeholder="Company Name">
+          <input type="tel" name="phone" placeholder="Phone Number">
+        </div>
+        <textarea name="message" placeholder="How can we help?" required></textarea>
+        <button type="submit" class="btn-primary">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Oakbridge Finance LLC. All rights reserved. &nbsp;·&nbsp; <a href="mailto:chris@oakbridgefinance.com">chris@oakbridgefinance.com</a> &nbsp;·&nbsp; <a href="/acorn">Acorn</a></p>
+</footer>
+
+<script>
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.service-card, .problem-card, .testimonial-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>

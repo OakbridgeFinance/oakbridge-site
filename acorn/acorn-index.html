@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acorn — QBO Data, Structured and Ready to Work With</title>
+<meta name="description" content="Pull your QuickBooks data into clean Excel workbooks — formatted reports, flat files, custom mappings. In seconds, not hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark-teal: #07393C;
+  --terracotta: #C97D60;
+  --mid-teal: #337E8D;
+  --deep-blue: #11455B;
+  --bright-teal: #29A1AF;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --light-gray: #F0EEEB;
+  --text-dark: #1A1A1A;
+  --text-muted: #5A6B6D;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  color: var(--text-dark);
+  background: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.montserrat { font-family: 'Montserrat', sans-serif; }
+
+/* ── NAV ─────────────────────────────────────────── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(7,57,60,0.06);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 2px 20px rgba(7,57,60,0.08); }
+.nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { height: 36px; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 500;
+  color: var(--dark-teal);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--bright-teal); }
+.btn-primary {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--white);
+  background: var(--terracotta);
+  padding: 10px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: #b56c52; transform: translateY(-1px); }
+.btn-outline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; font-weight: 600;
+  color: var(--dark-teal);
+  background: transparent;
+  padding: 10px 24px;
+  border: 2px solid var(--dark-teal);
+  border-radius: 6px;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: all 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { background: var(--dark-teal); color: var(--white); }
+
+/* ── HERO ────────────────────────────────────────── */
+.hero {
+  padding: 160px 32px 100px;
+  background: linear-gradient(165deg, var(--cream) 0%, var(--white) 50%, rgba(51,126,141,0.04) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(201,125,96,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+}
+.hero-text h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px; font-weight: 700;
+  color: var(--dark-teal);
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+.hero-text h1 span { color: var(--terracotta); }
+.hero-text .subtitle {
+  font-size: 20px; color: var(--text-muted);
+  line-height: 1.7; margin-bottom: 12px;
+  max-width: 520px;
+}
+.hero-text .tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--mid-teal);
+  font-style: italic;
+  margin-bottom: 36px;
+}
+.hero-actions { display: flex; gap: 16px; align-items: center; }
+.hero-visual {
+  position: relative;
+}
+.hero-screenshot {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(7,57,60,0.15), 0 4px 20px rgba(7,57,60,0.08);
+  background: var(--light-gray);
+  min-height: 360px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  border: 1px solid rgba(7,57,60,0.08);
+}
+
+/* ── SECTION STYLES ──────────────────────────────── */
+section { padding: 100px 32px; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+
+.section-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--dark-teal);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.section-subtitle {
+  font-size: 18px; color: var(--text-muted);
+  max-width: 640px; line-height: 1.7;
+}
+
+/* ── HOW IT WORKS ────────────────────────────────── */
+.how-it-works { background: var(--cream); }
+.steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px;
+  margin-top: 60px;
+}
+.step {
+  text-align: center; padding: 40px 24px;
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid rgba(7,57,60,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(7,57,60,0.08);
+}
+.step-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 48px; font-weight: 700;
+  color: rgba(201,125,96,0.2);
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 12px;
+}
+.step p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+
+/* ── WHY FLAT FILES ──────────────────────────────── */
+.why-flat {
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.why-flat::before {
+  content: '';
+  position: absolute; top: 50%; left: -150px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(41,161,175,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.why-flat .section-subtitle { max-width: 720px; }
+.flow-diagram {
+  display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 24px; align-items: center;
+  margin-top: 60px;
+}
+.flow-step {
+  text-align: center;
+}
+.flow-image {
+  background: var(--light-gray);
+  border-radius: 10px;
+  aspect-ratio: 4/3;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(7,57,60,0.08);
+  box-shadow: 0 4px 20px rgba(7,57,60,0.04);
+}
+.flow-step h4 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 6px;
+}
+.flow-step p {
+  font-size: 14px; font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.flow-arrow {
+  font-size: 32px;
+  color: var(--terracotta);
+  font-weight: 300;
+  padding-bottom: 80px;
+}
+.flat-closing {
+  margin-top: 80px;
+  padding: 48px;
+  background: linear-gradient(135deg, rgba(7,57,60,0.03) 0%, rgba(51,126,141,0.05) 100%);
+  border-radius: 12px;
+  border-left: 4px solid var(--terracotta);
+}
+.flat-closing h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 20px;
+}
+.flat-closing ul {
+  list-style: none; padding: 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px;
+}
+.flat-closing li {
+  font-size: 15px;
+  color: var(--text-dark);
+  padding-left: 24px;
+  position: relative;
+  line-height: 1.5;
+}
+.flat-closing li::before {
+  content: '→';
+  position: absolute; left: 0;
+  color: var(--terracotta);
+  font-weight: 700;
+}
+
+/* ── WHAT YOU CAN DO ─────────────────────────────── */
+.what-you-can-do {
+  background: var(--cream);
+}
+.use-cases {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+  margin-top: 60px;
+}
+.use-case {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 40px 36px;
+  border: 1px solid rgba(7,57,60,0.06);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.use-case:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(7,57,60,0.1);
+}
+.use-case::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--terracotta);
+}
+.use-case-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--mid-teal);
+  margin-bottom: 16px;
+}
+.use-case h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--dark-teal);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.use-case p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.use-case p strong { color: var(--dark-teal); font-weight: 600; }
+
+/* ── FEATURES ────────────────────────────────────── */
+.features-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  margin-top: 60px;
+}
+.feature-card {
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(7,57,60,0.08);
+  background: var(--white);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(7,57,60,0.06);
+}
+.feature-icon {
+  width: 48px; height: 48px;
+  background: rgba(201,125,96,0.1);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+.feature-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 12px;
+}
+.feature-card p { font-size: 15px; color: var(--text-muted); line-height: 1.7; }
+
+/* ── TRUST / VALIDATION ──────────────────────────── */
+.trust-section {
+  background: var(--dark-teal);
+  color: var(--white);
+}
+.trust-section .section-label { color: var(--terracotta); }
+.trust-section .section-title { color: var(--white); }
+.trust-section .section-subtitle { color: rgba(255,255,255,0.7); }
+.trust-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  margin-top: 60px; align-items: center;
+}
+.trust-content blockquote {
+  font-size: 22px; font-weight: 300;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+  border-left: 3px solid var(--terracotta);
+  padding-left: 24px;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.trust-content p { color: rgba(255,255,255,0.6); font-size: 15px; line-height: 1.7; }
+.trust-screenshot {
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  min-height: 300px;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ── COMPARISON TABLE ────────────────────────────── */
+.comparison { background: var(--cream); }
+.comparison-table {
+  margin-top: 60px;
+  overflow-x: auto;
+}
+.comparison-table table {
+  width: 100%; border-collapse: collapse;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(7,57,60,0.06);
+}
+.comparison-table thead {
+  background: var(--dark-teal);
+}
+.comparison-table th {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px; font-weight: 600;
+  color: var(--white);
+  padding: 16px 20px;
+  text-align: left;
+  letter-spacing: 0.02em;
+}
+.comparison-table th:first-child { width: 200px; }
+.comparison-table th.acorn-col {
+  background: var(--terracotta);
+}
+.comparison-table td {
+  font-size: 14px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(7,57,60,0.06);
+  color: var(--text-dark);
+}
+.comparison-table tr:last-child td { border-bottom: none; }
+.comparison-table td:first-child {
+  font-weight: 600; color: var(--dark-teal);
+  font-size: 13px;
+}
+.comparison-table td.acorn-col {
+  background: rgba(201,125,96,0.04);
+  font-weight: 600;
+}
+.check { color: var(--bright-teal); font-weight: 700; }
+.cross { color: #ccc; }
+.diy { color: var(--terracotta); font-size: 12px; font-weight: 600; }
+
+/* ── PRICING ─────────────────────────────────────── */
+.pricing-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  margin-top: 60px;
+  max-width: 1000px;
+}
+.pricing-card {
+  padding: 48px 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(7,57,60,0.1);
+  background: var(--white);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card.featured {
+  border: 2px solid var(--terracotta);
+  box-shadow: 0 12px 40px rgba(201,125,96,0.12);
+}
+.pricing-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  background: var(--terracotta); color: var(--white);
+  padding: 4px 16px; border-radius: 20px;
+}
+.pricing-card h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 8px;
+}
+.pricing-price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 4px;
+}
+.pricing-price span { font-size: 16px; font-weight: 400; color: var(--text-muted); }
+.pricing-note {
+  font-size: 14px; color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.pricing-features {
+  list-style: none; padding: 0;
+  margin-bottom: 32px;
+  flex-grow: 1;
+}
+.pricing-features li {
+  font-size: 14px; color: var(--text-dark);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(7,57,60,0.04);
+  display: flex; align-items: center; gap: 10px;
+}
+.pricing-features li::before {
+  content: '✓';
+  color: var(--bright-teal);
+  font-weight: 700;
+  font-size: 14px;
+}
+.pricing-card .btn-primary { width: 100%; text-align: center; }
+.pricing-card .btn-outline { width: 100%; text-align: center; }
+
+/* ── DATA ACCESS CALLOUT ─────────────────────────── */
+.data-callout {
+  text-align: center;
+  padding: 80px 32px;
+  background: linear-gradient(135deg, var(--dark-teal) 0%, var(--deep-blue) 100%);
+}
+.data-callout .callout-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px; font-weight: 700;
+  color: var(--white);
+  max-width: 700px; margin: 0 auto 12px;
+  line-height: 1.3;
+}
+.data-callout .callout-sub {
+  font-size: 17px; color: rgba(255,255,255,0.6);
+  max-width: 600px; margin: 0 auto 36px;
+  line-height: 1.6;
+}
+
+/* ── FOOTER CTA ──────────────────────────────────── */
+.footer-cta {
+  text-align: center;
+  padding: 100px 32px;
+  background: var(--cream);
+}
+.footer-cta h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 16px;
+}
+.footer-cta p {
+  font-size: 18px; color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.footer-cta .btn-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── ABOUT OAKBRIDGE ─────────────────────────────── */
+.about-oakbridge {
+  padding: 100px 32px;
+  background: var(--white);
+  border-top: 1px solid rgba(7,57,60,0.06);
+}
+.about-inner {
+  max-width: 900px; margin: 0 auto;
+  text-align: center;
+}
+.about-eyebrow {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--terracotta);
+  margin-bottom: 16px;
+}
+.about-headline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--dark-teal);
+  line-height: 1.25;
+  margin-bottom: 24px;
+}
+.about-body {
+  font-size: 17px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 auto 36px;
+}
+.about-actions {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  padding: 40px 32px;
+  background: var(--dark-teal);
+  text-align: center;
+}
+footer p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+footer a:hover { color: var(--white); }
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-text h1 { font-size: 36px; }
+  .steps { grid-template-columns: 1fr; gap: 24px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .trust-grid { grid-template-columns: 1fr; }
+  .pricing-cards { grid-template-columns: 1fr; }
+  .nav-links a:not(.btn-primary) { display: none; }
+  .flow-diagram { grid-template-columns: 1fr; gap: 16px; }
+  .flow-arrow { transform: rotate(90deg); padding-bottom: 0; }
+  .flat-closing ul { grid-template-columns: 1fr; }
+  .flat-closing { padding: 32px 24px; }
+  .use-cases { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  opacity: 0;
+  animation: fadeUp 0.6s ease-out forwards;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <img src="Logo_F23.jpg" alt="Oakbridge Finance" class="nav-logo">
+    <div class="nav-links">
+      <a href="#use-cases">Use Cases</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+      <a href="https://oakbridgefinance.com">CFO Services</a>
+      <a href="https://acorn.oakbridgefinance.com" class="btn-primary">Start Free Trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1 class="animate-in">Custom reports. Dashboard-ready data. Answers in&nbsp;<span>minutes.</span></h1>
+      <p class="subtitle animate-in delay-1">Pull your QuickBooks data into clean Excel workbooks — formatted reports, custom account mapping, and flat files for analysis. In seconds, not hours.</p>
+      <p class="tagline animate-in delay-2">The custom reporting and flat file export QBO should offer off the shelf — but doesn't.</p>
+      <div class="hero-actions animate-in delay-3">
+        <a href="https://acorn.oakbridgefinance.com" class="btn-primary" style="padding: 14px 32px; font-size: 16px;">Start Free Trial</a>
+        <a href="#use-cases" class="btn-outline">See What's Possible</a>
+      </div>
+    </div>
+    <div class="hero-visual animate-in delay-4">
+      <div class="hero-screenshot">
+        <!-- Replace with screenshot of Acorn P&L output -->
+        [ Screenshot: Acorn Excel Output ]
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU CAN DO -->
+<section class="what-you-can-do" id="use-cases">
+  <div class="section-inner">
+    <div class="section-label">What's Possible</div>
+    <div class="section-title">Three ways Acorn transforms your reporting.</div>
+    <div class="section-subtitle">Once your QBO data is in a flat format with custom account mappings, the same dataset powers every reporting workflow — from executive dashboards to last-minute board questions.</div>
+
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="use-case-label">01 · Custom Reporting</div>
+        <h3>Reports tailored to every audience.</h3>
+        <p>Your <strong>CEO</strong> wants a clean P&amp;L. Your <strong>investors</strong> want segment-level gross margin. <strong>Operations</strong> wants spend by category. Build a custom account map for each audience — and generate the right view in one click, every month.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-label">02 · Dashboards</div>
+        <h3>Dashboard-ready, out of the box.</h3>
+        <p>Flat file structure plugs straight into <strong>Excel pivots, Tableau, Power BI, or Looker</strong>. Build dashboards on top of QBO data — or fold your financials into a larger data model alongside your CRM, billing, or ops systems.</p>
+      </div>
+      <div class="use-case">
+        <div class="use-case-label">03 · Ad Hoc Analysis</div>
+        <h3>Answer questions in minutes, not hours.</h3>
+        <p>Need digital marketing spend trends for <strong>Business Unit A</strong> over the last 18 months? Pivot on it. Comparing Q1 professional fees across three entities? Two clicks. When your data is flat, every question becomes easy to answer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-it-works" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-label">How It Works</div>
+    <div class="section-title">Three clicks to structured financials.</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3>Connect Your QBO</h3>
+        <p>Sign in and securely connect your QuickBooks Online company. Works with any QBO plan — Simple Start through Advanced.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3>Select Your Options</h3>
+        <p>Choose your date range, reporting dimensions, account mappings, and which reports to include.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3>Download Your Workbook</h3>
+        <p>Get a multi-tab Excel workbook with formatted financials, GL summaries, flat files, aging reports, and built-in validation. Ready to use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY FLAT FILES -->
+<section class="why-flat">
+  <div class="section-inner">
+    <div class="section-label">Why Flat Files</div>
+    <div class="section-title">Why flat files change everything.</div>
+    <div class="section-subtitle">QBO gives you reports. But the moment you need to slice, group, or combine that data differently — quarterly trends, revenue by service line, custom KPI dashboards — the reports fall apart. You're stuck exporting, cleaning, and reformatting. Every month. For every client.</div>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-image">
+          <!-- Replace with screenshot of messy QBO P&L report -->
+          [ QBO Report ]
+        </div>
+        <h4>QBO Report</h4>
+        <p>Pretty to look at. Impossible to analyze.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-image">
+          <!-- Replace with screenshot of Acorn IS GL Summary flat file -->
+          [ Flat File ]
+        </div>
+        <h4>Flat File</h4>
+        <p>One row per account, per period. Every field clean and queryable.</p>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-image">
+          <!-- Replace with screenshot of a dashboard / pivot / custom report -->
+          [ Your Analysis ]
+        </div>
+        <h4>Your Analysis</h4>
+        <p>Pivot tables. Dashboards. Custom reports. Whatever you need, in minutes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST / VALIDATION -->
+<section class="trust-section">
+  <div class="section-inner">
+    <div class="trust-grid">
+      <div class="trust-content">
+        <div class="section-label">Data You Can Trust</div>
+        <div class="section-title">Trust, but verify.</div>
+        <blockquote>"Other tools pull your data into a black box. Acorn shows its work."</blockquote>
+        <p>Every Acorn report includes an automatic reconciliation tab that checks every GL account against QBO's own reports — so you never have to wonder if the numbers are right. No other extraction tool does this.</p>
+      </div>
+      <div class="trust-screenshot">
+        <!-- Replace with screenshot of Validation tab -->
+        [ Screenshot: Validation Tab ]
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA ACCESS CALLOUT -->
+<div class="data-callout">
+  <div class="callout-text">Access to your own financial data shouldn't cost extra.</div>
+  <div class="callout-sub">Other tools charge $85–250/month per company to export data you already own. Some cap you at 5,000 rows. Acorn gives you your full dataset — we've tested with 130,000+ row extractions — at a fraction of the price.</div>
+  <a href="#pricing" class="btn-primary" style="padding: 14px 32px; font-size: 16px;">See Pricing</a>
+</div>
+
+<!-- COMPARISON -->
+<section class="comparison" id="compare">
+  <div class="section-inner">
+    <div class="section-label">Compare</div>
+    <div class="section-title">How Acorn stacks up.</div>
+    <div class="section-subtitle">Purpose-built for financial reporting. Not a generic data connector.</div>
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th class="acorn-col">Acorn</th>
+            <th>G-Accon</th>
+            <th>Coefficient</th>
+            <th>QBO Spreadsheet Sync</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>GL-level flat file output</td>
+            <td class="acorn-col"><span class="check">✓</span></td>
+            <td><span class="diy">DIY</span></td>
+            <td><span class="diy">DIY</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Custom account mapping</td>
+            <td class="acorn-col"><span class="check">Built-in UI</span></td>
+            <td><span class="diy">DIY in spreadsheet</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Built-in data validation</td>
+            <td class="acorn-col"><span class="check">✓ Auto-reconciles</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+          <tr>
+            <td>Row limits</td>
+            <td class="acorn-col"><span class="check">None</span></td>
+            <td>None</td>
+            <td>5,000 (free tier)</td>
+            <td>None</td>
+          </tr>
+          <tr>
+            <td>Starting price</td>
+            <td class="acorn-col">Free / $15 per user/mo</td>
+            <td>$85/mo per company</td>
+            <td>$49/mo per user</td>
+            <td>"Free" (requires QBO Advanced&nbsp;$275/mo)</td>
+          </tr>
+          <tr>
+            <td>QBO companies included</td>
+            <td class="acorn-col"><span class="check">Up to 25</span></td>
+            <td>1 per subscription</td>
+            <td>Unlimited (but per-user pricing)</td>
+            <td>1 per seat</td>
+          </tr>
+          <tr>
+            <td>Works with any QBO plan</td>
+            <td class="acorn-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span> Advanced only</td>
+          </tr>
+          <tr>
+            <td>Setup per client</td>
+            <td class="acorn-col"><span class="check">Connect + go</span></td>
+            <td>Configure per report</td>
+            <td>Configure per query</td>
+            <td>Install add-in</td>
+          </tr>
+          <tr>
+            <td>Formatted financial reports</td>
+            <td class="acorn-col"><span class="check">✓ P&L, BS, Aging</span></td>
+            <td><span class="cross">✗</span> Raw data</td>
+            <td><span class="cross">✗</span> Raw data</td>
+            <td><span class="check">✓</span> Mirrors QBO</td>
+          </tr>
+          <tr>
+            <td>Works with Excel</td>
+            <td class="acorn-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span> Google Sheets only</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span> Office 365 only</td>
+          </tr>
+          <tr>
+            <td>Works with Google Sheets</td>
+            <td class="acorn-col">Coming soon</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-label">Pricing</div>
+    <div class="section-title">Simple, transparent pricing.</div>
+    <div class="section-subtitle">Start free. Upgrade when you're ready. No row limits. No per-company fees.</div>
+    <div class="pricing-cards" style="grid-template-columns: 1fr 1fr; max-width: 800px;">
+      <div class="pricing-card">
+        <h3>Basic</h3>
+        <div class="pricing-price">Free</div>
+        <div class="pricing-note">1 QBO company · 3-month date range</div>
+        <ul class="pricing-features">
+          <li>P&L and Balance Sheet reports</li>
+          <li>IS &amp; BS GL summaries (flat files)</li>
+          <li>BS Balances tab</li>
+          <li>AR &amp; AP Aging reports</li>
+          <li>Built-in validation &amp; reconciliation</li>
+          <li>Unlimited data pulls</li>
+          <li>No row limits</li>
+        </ul>
+        <a href="https://acorn.oakbridgefinance.com" class="btn-outline">Get Started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Most Popular</div>
+        <h3>Pro</h3>
+        <div class="pricing-price">$15<span>/user/mo</span></div>
+        <div class="pricing-note">Up to 5 QBO companies per user · Unlimited date range</div>
+        <ul class="pricing-features">
+          <li>Everything in Basic, plus:</li>
+          <li>Reporting by Class or Location</li>
+          <li>Custom account mapping</li>
+          <li>Mapped P&L &amp; Balance Sheet reports</li>
+          <li>Map validation with check figures</li>
+          <li>Full GL detail tabs</li>
+          <li>Google Sheets sync <span style="font-size:11px;color:var(--bright-teal);font-weight:600;">COMING SOON</span></li>
+        </ul>
+        <a href="https://acorn.oakbridgefinance.com" class="btn-primary">Start Free Trial</a>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-muted);">Need firm-wide access for a larger team? <a href="https://oakbridgefinance.com/contact" style="color:var(--mid-teal); font-weight:600;">Contact us</a></p>
+  </div>
+</section>
+
+<!-- ABOUT OAKBRIDGE -->
+<section class="about-oakbridge">
+  <div class="about-inner">
+    <div class="about-eyebrow">About Oakbridge</div>
+    <h2 class="about-headline">Built by a fractional CFO,<br>for fractional CFOs.</h2>
+    <p class="about-body">Acorn was built at Oakbridge Finance to solve the reporting problems we ran into with our own clients. Oakbridge is a fractional CFO and accounting firm serving growing businesses with strategic finance, reporting, and advisory services — from month-end close through capital raises.</p>
+    <div class="about-actions">
+      <a href="https://oakbridgefinance.com" class="btn-outline">Learn About Oakbridge</a>
+      <a href="https://oakbridgefinance.com/contact" class="btn-primary">Book a Consult</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2026 Oakbridge Finance LLC. All rights reserved. &nbsp;·&nbsp; <a href="https://oakbridgefinance.com">oakbridgefinance.com</a></p>
+</footer>
+
+<script>
+// Nav scroll effect
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.step, .use-case, .pricing-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+
+</body>
+</html>
