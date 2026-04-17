@@ -29,6 +29,31 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.site-nav {
+  background: var(--white);
+  border-bottom: 1px solid rgba(7,57,60,0.08);
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.site-nav .nav-logo { height: 32px; }
+.site-nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+.site-nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dark-teal);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.site-nav-links a:hover { color: var(--bright-teal); }
+
 .dashboard-header {
   background: var(--dark-teal);
   padding: 24px 32px;
@@ -183,6 +208,13 @@ body {
 </style>
 </head>
 <body>
+
+<nav class="site-nav">
+  <a href="/"><img src="/Logo-F23-transparent.png" alt="Oakbridge Finance" class="nav-logo"></a>
+  <div class="site-nav-links">
+    <a href="/acorn">Acorn</a>
+  </div>
+</nav>
 
 <div class="dashboard-header">
   <div>
