@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acorn Demo Dashboard — Oakbridge Finance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --dark-teal: #07393C;
+  --terracotta: #C97D60;
+  --mid-teal: #337E8D;
+  --deep-blue: #11455B;
+  --bright-teal: #29A1AF;
+  --cream: #FAF8F5;
+  --white: #FFFFFF;
+  --text-dark: #1A1A1A;
+  --text-muted: #5A6B6D;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Source Sans 3', sans-serif;
+  background: var(--cream);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+.dashboard-header {
+  background: var(--dark-teal);
+  padding: 24px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.dashboard-header h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+}
+.dashboard-header .header-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+}
+.header-badge {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.dashboard-info {
+  background: var(--white);
+  border-bottom: 1px solid rgba(7,57,60,0.06);
+  padding: 16px 32px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.info-item strong {
+  color: var(--dark-teal);
+  font-weight: 600;
+}
+
+.dashboard-grid {
+  max-width: 1400px;
+  margin: 24px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.kpi-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.kpi-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(7,57,60,0.06);
+}
+.kpi-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.kpi-value {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--dark-teal);
+}
+.kpi-change {
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 500;
+}
+.kpi-change.positive { color: #059669; }
+.kpi-change.negative { color: #DC2626; }
+
+.chart-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid rgba(7,57,60,0.06);
+}
+.chart-card.full-width {
+  grid-column: 1 / -1;
+}
+.chart-title {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 16px;
+}
+.chart-container {
+  position: relative;
+  height: 280px;
+}
+
+.dashboard-footer {
+  text-align: center;
+  padding: 40px 32px;
+  background: var(--white);
+  border-top: 1px solid rgba(7,57,60,0.06);
+  margin-top: 24px;
+}
+.dashboard-footer p {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.dashboard-footer a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  background: var(--terracotta);
+  padding: 12px 28px;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.dashboard-footer a:hover { background: #b56c52; }
+
+.source-note {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr 1fr; }
+  .dashboard-info { flex-wrap: wrap; gap: 12px; }
+}
+@media (max-width: 500px) {
+  .kpi-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="dashboard-header">
+  <div>
+    <h1>Acorn Demo Co — Financial Dashboard</h1>
+    <div class="header-sub">Built from Acorn flat file output · No manual data manipulation</div>
+  </div>
+  <div class="header-badge">Sample Data</div>
+</div>
+
+<div class="dashboard-info">
+  <div class="info-item"><strong>Company:</strong> Acorn Demo Co</div>
+  <div class="info-item"><strong>Period:</strong> Jan 2025 — Dec 2025</div>
+  <div class="info-item"><strong>Data Source:</strong> IS GL Summary + BS Balances (Acorn flat files)</div>
+</div>
+
+<!-- KPI Row -->
+<div class="dashboard-grid">
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Total Revenue</div>
+      <div class="kpi-value">$4.2M</div>
+      <div class="kpi-change positive">↑ 18% vs. prior year</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Gross Margin</div>
+      <div class="kpi-value">62.4%</div>
+      <div class="kpi-change positive">↑ 2.1 pts vs. prior year</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Net Income</div>
+      <div class="kpi-value">$418K</div>
+      <div class="kpi-change positive">↑ 34% vs. prior year</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Cash Position</div>
+      <div class="kpi-value">$892K</div>
+      <div class="kpi-change negative">↓ 5% vs. prior month</div>
+    </div>
+  </div>
+
+  <!-- Revenue Trend -->
+  <div class="chart-card full-width">
+    <div class="chart-title">Monthly Revenue vs. Net Income</div>
+    <div class="chart-container">
+      <canvas id="revenueTrend"></canvas>
+    </div>
+    <div class="source-note">Source: IS GL Summary → Revenue and Net Income rows, pivoted by month</div>
+  </div>
+
+  <!-- Expense Breakdown -->
+  <div class="chart-card">
+    <div class="chart-title">Operating Expense Breakdown (YTD)</div>
+    <div class="chart-container">
+      <canvas id="expenseBreakdown"></canvas>
+    </div>
+    <div class="source-note">Source: IS GL Summary → Expense accounts grouped by category</div>
+  </div>
+
+  <!-- Gross Margin Trend -->
+  <div class="chart-card">
+    <div class="chart-title">Gross Margin % by Month</div>
+    <div class="chart-container">
+      <canvas id="marginTrend"></canvas>
+    </div>
+    <div class="source-note">Source: IS GL Summary → (Revenue - COGS) / Revenue</div>
+  </div>
+
+  <!-- Balance Sheet Composition -->
+  <div class="chart-card">
+    <div class="chart-title">Balance Sheet Composition (Dec 2025)</div>
+    <div class="chart-container">
+      <canvas id="bsComposition"></canvas>
+    </div>
+    <div class="source-note">Source: BS Balances → Ending Balance for Dec 2025</div>
+  </div>
+
+  <!-- Top 10 Expense Accounts -->
+  <div class="chart-card">
+    <div class="chart-title">Top 10 Expense Accounts (YTD)</div>
+    <div class="chart-container">
+      <canvas id="topExpenses"></canvas>
+    </div>
+    <div class="source-note">Source: IS GL Summary → Expense accounts sorted by total</div>
+  </div>
+</div>
+
+<div class="dashboard-footer">
+  <p>This dashboard was built entirely from Acorn's flat file output — no manual data manipulation required.<br>
+  The same data structure powers pivot tables, Tableau, Power BI, Looker, and any analysis tool you prefer.</p>
+  <a href="/acorn">Try Acorn Free →</a>
+</div>
+
+<script>
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+const revenue =    [310, 295, 340, 355, 320, 378, 345, 390, 365, 410, 385, 425];
+const cogs =       [118, 115, 125, 130, 128, 140, 132, 145, 138, 152, 148, 158];
+const netIncome =  [22, 15, 35, 38, 18, 48, 32, 52, 28, 58, 35, 62];
+
+const teal = '#07393C';
+const midTeal = '#337E8D';
+const brightTeal = '#29A1AF';
+const terracotta = '#C97D60';
+const deepBlue = '#11455B';
+
+const chartFont = { family: "'Source Sans 3', sans-serif", size: 12 };
+
+Chart.defaults.font.family = chartFont.family;
+Chart.defaults.font.size = chartFont.size;
+Chart.defaults.color = '#5A6B6D';
+
+// Revenue vs Net Income
+new Chart(document.getElementById('revenueTrend'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [
+      {
+        label: 'Revenue ($K)',
+        data: revenue,
+        backgroundColor: midTeal,
+        borderRadius: 4,
+        order: 2,
+      },
+      {
+        label: 'Net Income ($K)',
+        type: 'line',
+        data: netIncome,
+        borderColor: terracotta,
+        backgroundColor: 'transparent',
+        borderWidth: 3,
+        pointRadius: 4,
+        pointBackgroundColor: terracotta,
+        tension: 0.3,
+        order: 1,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: { callback: v => '$' + v + 'K' },
+        grid: { color: 'rgba(7,57,60,0.06)' },
+      },
+      x: { grid: { display: false } },
+    }
+  }
+});
+
+// Expense Breakdown
+new Chart(document.getElementById('expenseBreakdown'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Payroll & Benefits', 'Marketing', 'Rent & Facilities', 'Software & Tech', 'Professional Services', 'Other'],
+    datasets: [{
+      data: [680, 320, 240, 180, 120, 95],
+      backgroundColor: [teal, midTeal, brightTeal, terracotta, deepBlue, '#8BB8C0'],
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'right', labels: { padding: 12, usePointStyle: true, pointStyle: 'circle' } },
+    },
+    cutout: '55%',
+  }
+});
+
+// Gross Margin Trend
+const grossMargin = revenue.map((r, i) => ((r - cogs[i]) / r * 100).toFixed(1));
+new Chart(document.getElementById('marginTrend'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      label: 'Gross Margin %',
+      data: grossMargin,
+      borderColor: brightTeal,
+      backgroundColor: 'rgba(41,161,175,0.08)',
+      fill: true,
+      borderWidth: 3,
+      pointRadius: 4,
+      pointBackgroundColor: brightTeal,
+      tension: 0.3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        min: 50, max: 70,
+        ticks: { callback: v => v + '%' },
+        grid: { color: 'rgba(7,57,60,0.06)' },
+      },
+      x: { grid: { display: false } },
+    }
+  }
+});
+
+// Balance Sheet Composition
+new Chart(document.getElementById('bsComposition'), {
+  type: 'bar',
+  data: {
+    labels: ['Assets', 'Liabilities', 'Equity'],
+    datasets: [
+      {
+        label: 'Current',
+        data: [1420, 580, 0],
+        backgroundColor: midTeal,
+        borderRadius: 4,
+      },
+      {
+        label: 'Non-Current / Other',
+        data: [890, 340, 1390],
+        backgroundColor: brightTeal,
+        borderRadius: 4,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', align: 'end' },
+    },
+    scales: {
+      y: {
+        stacked: true,
+        ticks: { callback: v => '$' + v + 'K' },
+        grid: { color: 'rgba(7,57,60,0.06)' },
+      },
+      x: { stacked: true, grid: { display: false } },
+    }
+  }
+});
+
+// Top 10 Expense Accounts
+new Chart(document.getElementById('topExpenses'), {
+  type: 'bar',
+  data: {
+    labels: [
+      'Salaries & Wages',
+      'Health Insurance',
+      'Digital Marketing',
+      'Rent',
+      'Software Subscriptions',
+      'Payroll Taxes',
+      'Legal Fees',
+      'Travel & Entertainment',
+      'Utilities',
+      'Office Supplies',
+    ],
+    datasets: [{
+      data: [420, 145, 138, 120, 98, 85, 72, 65, 48, 32],
+      backgroundColor: teal,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        ticks: { callback: v => '$' + v + 'K' },
+        grid: { color: 'rgba(7,57,60,0.06)' },
+      },
+      y: { grid: { display: false } },
+    }
+  }
+});
+</script>
+
+</body>
+</html>
