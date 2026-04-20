@@ -437,6 +437,19 @@ section { padding: 100px 32px; }
 .check { color: var(--bright-teal); font-weight: 700; }
 .cross { color: #ccc; }
 .diy { color: var(--terracotta); font-size: 12px; font-weight: 600; }
+.comparison-table tr.highlight-row td {
+  background: #FFF4E6;
+  font-weight: 700;
+  font-size: 15px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.comparison-table tr.highlight-row td:first-child {
+  color: var(--terracotta);
+}
+.comparison-table tr.highlight-row td.acorn-col {
+  background: rgba(201,125,96,0.14);
+}
 
 /* ── PRICING ─────────────────────────────────────── */
 .pricing-cards {
@@ -797,12 +810,20 @@ footer a:hover { color: var(--white); }
             <th></th>
             <th class="acorn-col">Acorn</th>
             <th>LiveFlow</th>
+            <th>Reach Reporting</th>
             <th>G-Accon</th>
-            <th>Coefficient</th>
-            <th>QBO Spreadsheet Sync</th>
+            <th>QBO Advanced</th>
           </tr>
         </thead>
         <tbody>
+          <tr class="highlight-row">
+            <td>Starting price</td>
+            <td class="acorn-col">Free / $15 / $25 per user/mo</td>
+            <td>~$500+/mo (custom quote)</td>
+            <td>$85/mo per company</td>
+            <td>$49/mo per user</td>
+            <td>"Free" (requires QBO Advanced&nbsp;$275/mo)</td>
+          </tr>
           <tr>
             <td>GL-level flat file output</td>
             <td class="acorn-col"><span class="check">✓</span></td>
@@ -828,92 +849,12 @@ footer a:hover { color: var(--white); }
             <td><span class="cross">✗</span></td>
           </tr>
           <tr>
-            <td>Row limits</td>
-            <td class="acorn-col"><span class="check">None</span></td>
-            <td>None</td>
-            <td>None</td>
-            <td>5,000 (free tier)</td>
-            <td>None</td>
-          </tr>
-          <tr>
-            <td>Starting price</td>
-            <td class="acorn-col">Free / $15 / $25 per user/mo</td>
-            <td>~$500+/mo (custom quote)</td>
-            <td>$85/mo per company</td>
-            <td>$49/mo per user</td>
-            <td>"Free" (requires QBO Advanced&nbsp;$275/mo)</td>
-          </tr>
-          <tr>
-            <td>Published pricing</td>
-            <td class="acorn-col"><span class="check">✓</span></td>
-            <td><span class="cross">✗</span> Sales call required</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Self-service signup</td>
-            <td class="acorn-col"><span class="check">✓</span></td>
-            <td><span class="cross">✗</span> Demo required</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>QBO companies included</td>
-            <td class="acorn-col"><span class="check">Up to 25</span></td>
-            <td>Per custom plan</td>
-            <td>1 per subscription</td>
-            <td>Unlimited (but per-user pricing)</td>
-            <td>1 per seat</td>
-          </tr>
-          <tr>
-            <td>Multi-entity consolidation</td>
-            <td class="acorn-col"><span class="diy">Manual (multiple extracts)</span></td>
-            <td><span class="check">✓ Built-in</span></td>
-            <td><span class="diy">DIY</span></td>
-            <td><span class="diy">DIY</span></td>
-            <td><span class="cross">✗</span></td>
-          </tr>
-          <tr>
-            <td>Works with any QBO plan</td>
-            <td class="acorn-col"><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✗</span> Advanced only</td>
-          </tr>
-          <tr>
-            <td>Setup per client</td>
-            <td class="acorn-col"><span class="check">Connect + go</span></td>
-            <td>Live sync config</td>
-            <td>Configure per report</td>
-            <td>Configure per query</td>
-            <td>Install add-in</td>
-          </tr>
-          <tr>
             <td>Formatted financial reports</td>
             <td class="acorn-col"><span class="check">✓ P&L, BS, Aging</span></td>
             <td><span class="check">✓ 100+ templates</span></td>
             <td><span class="cross">✗</span> Raw data</td>
             <td><span class="cross">✗</span> Raw data</td>
             <td><span class="check">✓</span> Mirrors QBO</td>
-          </tr>
-          <tr>
-            <td>Real-time sync</td>
-            <td class="acorn-col"><span class="diy">On-demand extract</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-          </tr>
-          <tr>
-            <td>Data stored on servers</td>
-            <td class="acorn-col"><span class="check">✗ Deleted after download</span></td>
-            <td>Stored for live sync</td>
-            <td>Stored for live sync</td>
-            <td>Stored for live sync</td>
-            <td>Stored for live sync</td>
           </tr>
           <tr>
             <td>Works with Excel</td>
@@ -924,20 +865,36 @@ footer a:hover { color: var(--white); }
             <td><span class="check">✓</span> Office 365 only</td>
           </tr>
           <tr>
-            <td>Works with Google Sheets</td>
-            <td class="acorn-col">Coming soon</td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="check">✓</span></td>
-            <td><span class="cross">✗</span></td>
+            <td>Data stored on servers</td>
+            <td class="acorn-col"><span class="check">✗ Deleted after download</span></td>
+            <td>Stored for live sync</td>
+            <td>Stored for live sync</td>
+            <td>Stored for live sync</td>
+            <td>Stored for live sync</td>
           </tr>
           <tr>
-            <td>Free trial</td>
-            <td class="acorn-col"><span class="check">7-day Pro trial</span></td>
-            <td><span class="diy">Demo / sales call</span></td>
-            <td><span class="check">Free tier</span></td>
-            <td><span class="check">Free tier</span></td>
-            <td>—</td>
+            <td>Works with any QBO plan</td>
+            <td class="acorn-col"><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="cross">✗</span> Advanced only</td>
+          </tr>
+          <tr>
+            <td>Self-service signup</td>
+            <td class="acorn-col"><span class="check">✓</span></td>
+            <td><span class="cross">✗</span> Demo required</td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+            <td><span class="check">✓</span></td>
+          </tr>
+          <tr>
+            <td>Setup per client</td>
+            <td class="acorn-col"><span class="check">Connect + go</span></td>
+            <td>Live sync config</td>
+            <td>Configure per report</td>
+            <td>Configure per query</td>
+            <td>Install add-in</td>
           </tr>
         </tbody>
       </table>
