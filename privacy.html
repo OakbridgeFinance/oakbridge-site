@@ -115,34 +115,31 @@ a { color: var(--mid-teal); }
   <li>Use your financial data for advertising, marketing, or profiling purposes</li>
   <li>Aggregate your financial data with other users' data for any purpose</li>
   <li>Access or review your financial data unless you explicitly request our assistance</li>
-  <li>Retain your financial data beyond the temporary report storage period</li>
+  <li>Retain your financial data after your report is downloaded</li>
 </ul>
 
 <h2>4. How We Store and Protect Your Data</h2>
 
 <p><strong>No Persistent Financial Data Storage:</strong> We do not maintain a database of your financial transactions, account balances, or ledger data. Financial data is extracted from QBO in real time, used to build your report, and discarded. Generated report files are deleted from our servers immediately after you download them.</p>
 
-<p><strong>Multi-Tenant Isolation:</strong> Every piece of data in our system is isolated to your individual account. Row-level security (RLS) policies on every database table ensure that each user can only access their own data — jobs, mappings, QBO connections, and report files. This isolation is enforced at the database level, not just the application level, meaning even a software bug cannot expose one user's data to another.</p>
+<p><strong>Multi-Tenant Isolation:</strong> Every piece of data in our system is isolated to your individual account. Row-level security policies on every database table ensure that each user can only access their own data — jobs, mappings, QBO connections, and report files. This isolation is enforced at the database level, not just the application level.</p>
 
-<p><strong>Authentication Tokens:</strong> QBO OAuth tokens are stored in our database with row-level security policies. These tokens allow Acorn to connect to QBO on your behalf but do not contain your QBO username or password. Tokens are transmitted exclusively over HTTPS.</p>
+<p><strong>Authentication Tokens:</strong> QBO OAuth tokens are stored with row-level security policies. These tokens allow Acorn to connect to QBO on your behalf but do not contain your QBO username or password. All tokens are transmitted exclusively over HTTPS.</p>
 
-<p><strong>Generated Reports:</strong> Report files are stored in Supabase Storage with bucket-level access policies only until downloaded. Once you download your report, the file is immediately deleted from our servers. Only authenticated users can access files, and each user can only download their own reports.</p>
-
-<p><strong>Infrastructure Security:</strong> The Service is hosted on Railway (backend) and Supabase (database and storage). All data is transmitted over HTTPS/TLS encryption. We employ industry-standard security practices including CORS restrictions, CSRF protection via OAuth state tokens, rate limiting on authentication endpoints, input validation, and bounded concurrency controls. Our codebase has been reviewed for security vulnerabilities including cross-user data leakage, injection attacks, and authentication bypass.</p>
+<p><strong>Infrastructure Security:</strong> The Service is hosted on SOC 2 Type II certified cloud infrastructure providers. All data is encrypted in transit via HTTPS/TLS. We employ industry-standard security practices including CORS restrictions, CSRF protection, rate limiting on authentication endpoints, input validation, and bounded concurrency controls.</p>
 
 <p><strong>Access Controls:</strong> Our team does not access, view, or examine your financial data or generated reports. We access our systems only for maintenance, troubleshooting (at your request), and infrastructure management — never to view individual users' financial information.</p>
 
 <h2>5. Data Sharing</h2>
-<p><strong>We do not sell, rent, trade, or share your personal information or financial data with any third parties.</strong> The only parties that interact with your data are:</p>
+<p><strong>We do not sell, rent, trade, or share your personal information or financial data with any third parties.</strong> The following categories of service providers support the operation of the Service:</p>
 <ul>
-  <li><strong>Intuit / QuickBooks Online:</strong> Your QBO data is accessed via Intuit's OAuth 2.0 API. Intuit's own privacy policy governs their handling of your data.</li>
-  <li><strong>Supabase:</strong> Our database and file storage provider. Stores your account information, OAuth tokens, and temporary report files. Data is encrypted in transit and at rest.</li>
-  <li><strong>Railway:</strong> Our application hosting provider. Processes requests but does not store your financial data.</li>
-  <li><strong>Stripe:</strong> Processes subscription payments. We never see or store your payment card details.</li>
-  <li><strong>Google Analytics:</strong> Collects anonymized website usage data. Does not have access to your financial data or account information.</li>
-  <li><strong>Legal Requirements:</strong> We may disclose your information if required by law, subpoena, or court order.</li>
+  <li><strong>QuickBooks Online (Intuit):</strong> Your QBO data is accessed via Intuit's OAuth 2.0 API. Intuit's own privacy policy governs their handling of your data.</li>
+  <li><strong>Cloud infrastructure providers:</strong> SOC 2 Type II certified providers host our database, file storage, and application backend. These providers process data on our behalf under strict access controls and do not independently access your financial data.</li>
+  <li><strong>Payment processing:</strong> Subscription payments are handled by a PCI-compliant third-party processor. We never see or store your payment card details.</li>
+  <li><strong>Website analytics:</strong> We use anonymized analytics to understand website traffic. These tools do not have access to your financial data or account information.</li>
+  <li><strong>Legal requirements:</strong> We may disclose your information if required by law, subpoena, or court order.</li>
 </ul>
-<p>No other party has access to your data. We do not use data brokers, advertising networks, or third-party analytics tools that process your financial information.</p>
+<p>We do not use data brokers, advertising networks, or third-party tools that process your financial information.</p>
 
 <h2>6. Data Retention</h2>
 <ul>
