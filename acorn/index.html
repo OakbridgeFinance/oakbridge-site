@@ -935,7 +935,7 @@ footer a:hover { color: var(--white); }
         <a href="https://acorn.oakbridgefinance.com" class="btn-outline">Start Free Trial</a>
       </div>
     </div>
-    <p style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-muted);">Need firm-wide access for a larger team? <a href="/#contact" style="color:var(--mid-teal); font-weight:600;">Contact us</a></p>
+    <p style="text-align:center; margin-top:24px; font-size:14px; color:var(--text-muted);">Need firm-wide access for a larger team? <a href="mailto:accounting+acorn@oakbridgefinance.com" style="color:var(--mid-teal); font-weight:600;">Contact us</a></p>
   </div>
 </section>
 
@@ -949,6 +949,79 @@ footer a:hover { color: var(--white); }
       <a href="https://oakbridgefinance.com" class="btn-outline">Learn About Oakbridge</a>
       <a href="/#contact" class="btn-primary">Book a Consult</a>
     </div>
+  </div>
+</section>
+
+<!-- ACORN CONTACT -->
+<style>
+.acorn-contact {
+  padding: 100px 32px;
+  background: var(--cream);
+  border-top: 1px solid rgba(7,57,60,0.06);
+}
+.acorn-contact-inner {
+  max-width: 640px; margin: 0 auto;
+  text-align: center;
+}
+.acorn-contact h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 12px;
+}
+.acorn-contact p.lead {
+  font-size: 17px; color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.acorn-contact-form {
+  display: flex; flex-direction: column; gap: 14px;
+  text-align: left;
+}
+.acorn-contact-form input,
+.acorn-contact-form textarea {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  color: var(--text-dark);
+  background: var(--white);
+  border: 1px solid rgba(7,57,60,0.12);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.acorn-contact-form input:focus,
+.acorn-contact-form textarea:focus {
+  outline: none;
+  border-color: var(--mid-teal);
+  box-shadow: 0 0 0 3px rgba(51,126,141,0.12);
+}
+.acorn-contact-form textarea { min-height: 140px; resize: vertical; }
+.acorn-contact-form button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--white);
+  background: var(--terracotta);
+  border: none;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  align-self: center;
+}
+.acorn-contact-form button:hover { background: #b56c52; transform: translateY(-1px); }
+</style>
+<section class="acorn-contact" id="contact">
+  <div class="acorn-contact-inner">
+    <h2>Questions about Acorn?</h2>
+    <p class="lead">Drop us a note — we'll get back to you within one business day.</p>
+    <form class="acorn-contact-form" action="https://formspree.io/f/xeevzbyn" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <textarea name="message" placeholder="What can we help with?" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
   </div>
 </section>
 
