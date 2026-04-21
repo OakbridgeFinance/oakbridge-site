@@ -357,12 +357,23 @@ section { padding: 100px 32px; }
 }
 .acorn-preview {
   border-radius: 12px;
-  background: var(--light-gray);
+  background: var(--white);
   min-height: 300px;
   display: flex; align-items: center; justify-content: center;
   color: var(--text-muted); font-size: 14px;
   border: 1px solid rgba(7,57,60,0.08);
   box-shadow: 0 12px 40px rgba(7,57,60,0.08);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.acorn-preview:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 56px rgba(7,57,60,0.12);
+}
+.acorn-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 /* ── CTA ─────────────────────────────────────────── */
@@ -652,10 +663,9 @@ footer a:hover { color: var(--white); }
         <p>We built Acorn to solve the reporting problems we ran into with our own clients. It pulls your QuickBooks data into clean, structured workbooks with formatted reports, custom account mapping, flat files for analysis, and built-in validation.</p>
         <a href="/acorn" class="btn-primary">Learn About Acorn</a>
       </div>
-      <div class="acorn-preview">
-        <!-- Replace with Acorn screenshot -->
-        [ Acorn Screenshot ]
-      </div>
+      <a href="/acorn" class="acorn-preview">
+        <img src="/Acorn%20Screenshot.png" alt="Acorn — QBO data extractor">
+      </a>
     </div>
   </div>
 </section>
@@ -674,9 +684,6 @@ footer a:hover { color: var(--white); }
       <div class="contact-info">
         <h3>Let's talk.</h3>
         <p>Whether you're looking for a fractional CFO, need help cleaning up your books, or are preparing for a major financial event — we'd love to hear from you.</p>
-        <div class="contact-detail"><strong>Email:</strong> <a href="mailto:chris@oakbridgefinance.com">chris@oakbridgefinance.com</a></div>
-        <div class="contact-detail"><strong>Phone:</strong> <a href="tel:8017060043">801.706.0043</a></div>
-        <div class="contact-detail"><strong>Location:</strong> Dallas-Fort Worth, TX</div>
       </div>
       <form class="contact-form" action="https://formspree.io/f/xnjlzwgz" method="POST">
         <div class="form-row">
@@ -696,7 +703,7 @@ footer a:hover { color: var(--white); }
 
 <!-- FOOTER -->
 <footer>
-  <p>&copy; 2026 Oakbridge Finance LLC. All rights reserved. &nbsp;·&nbsp; <a href="mailto:chris@oakbridgefinance.com">chris@oakbridgefinance.com</a> &nbsp;·&nbsp; <a href="/acorn">Acorn</a> &nbsp;·&nbsp; <a href="/terms.html">Terms</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></p>
+  <p>&copy; 2026 Oakbridge Finance LLC. All rights reserved. &nbsp;·&nbsp; <a href="/acorn">Acorn</a> &nbsp;·&nbsp; <a href="/terms.html">Terms</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></p>
 </footer>
 
 <script>
