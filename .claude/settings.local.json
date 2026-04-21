@@ -15,7 +15,9 @@
       "Bash(git branch *)",
       "Bash(git remote *)",
       "Bash(git push *)",
-      "Bash(git mv *)"
+      "Bash(git mv *)",
+      "Read(//c/Users/chris/Downloads/**)",
+      "Bash(cp \"C:/Users/chris/Downloads/data validation.png\" \"C:/Users/chris/OneDrive - Oakbridge Finance LLC/Documents/OakBridge Finance/01. Admin/Claude/Website/data validation.png\")"
     ]
   }
 }

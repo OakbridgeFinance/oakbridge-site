@@ -459,6 +459,13 @@ section { padding: 100px 32px; }
   color: rgba(255,255,255,0.3);
   font-size: 14px;
   border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+}
+.trust-screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
 }
 
 /* ── COMPARISON TABLE ────────────────────────────── */
@@ -866,8 +873,7 @@ footer a:hover { color: var(--white); }
         <p>Every Acorn report includes an automatic reconciliation tab that checks every GL account against QBO's own reports — so you never have to wonder if the numbers are right. No other extraction tool does this.</p>
       </div>
       <div class="trust-screenshot">
-        <!-- Replace with screenshot of Validation tab -->
-        [ Screenshot: Validation Tab ]
+        <img src="/data%20validation.png" alt="Acorn validation tab showing GL reconciliation">
       </div>
     </div>
   </div>
