@@ -143,6 +143,49 @@ nav.scrolled { box-shadow: 0 2px 20px rgba(7,57,60,0.08); }
   font-size: 14px;
   border: 1px solid rgba(7,57,60,0.08);
 }
+.hero-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.hero-flow-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.hero-flow-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 6px 24px rgba(7,57,60,0.14), 0 2px 6px rgba(7,57,60,0.06);
+  border: 1px solid rgba(7,57,60,0.08);
+  background: var(--white);
+}
+.hero-flow-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--dark-teal);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.3;
+}
+.hero-flow-arrow {
+  font-size: 22px;
+  color: var(--terracotta);
+  font-weight: 300;
+  flex-shrink: 0;
+  padding-bottom: 26px;
+}
+@media (max-width: 768px) {
+  .hero-flow { flex-direction: column; }
+  .hero-flow-arrow { transform: rotate(90deg); padding: 0; }
+}
 
 /* ── SECTION STYLES ──────────────────────────────── */
 section { padding: 100px 32px; }
@@ -197,6 +240,25 @@ section { padding: 100px 32px; }
   margin-bottom: 12px;
 }
 .step p { font-size: 15px; color: var(--text-muted); line-height: 1.6; }
+.how-preview {
+  margin-top: 64px;
+  text-align: center;
+}
+.how-preview img {
+  max-width: 880px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(7,57,60,0.08);
+  box-shadow: 0 12px 40px rgba(7,57,60,0.12), 0 4px 12px rgba(7,57,60,0.06);
+  background: var(--white);
+}
+.how-preview-caption {
+  margin-top: 16px;
+  font-size: 14px;
+  font-style: italic;
+  color: var(--text-muted);
+}
 
 /* ── WHY FLAT FILES ──────────────────────────────── */
 .why-flat {
@@ -221,15 +283,23 @@ section { padding: 100px 32px; }
   text-align: center;
 }
 .flow-image {
-  background: var(--light-gray);
+  background: var(--white);
   border-radius: 10px;
   aspect-ratio: 4/3;
+  overflow: hidden;
   display: flex; align-items: center; justify-content: center;
   color: var(--text-muted);
   font-size: 13px;
   margin-bottom: 20px;
   border: 1px solid rgba(7,57,60,0.08);
-  box-shadow: 0 4px 20px rgba(7,57,60,0.04);
+  box-shadow: 0 4px 20px rgba(7,57,60,0.08);
+}
+.flow-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+  display: block;
 }
 .flow-step h4 {
   font-family: 'Montserrat', sans-serif;
@@ -674,9 +744,21 @@ footer a:hover { color: var(--white); }
       </div>
     </div>
     <div class="hero-visual animate-in delay-4">
-      <div class="hero-screenshot">
-        <!-- Replace with screenshot of Acorn P&L output -->
-        [ Screenshot: Acorn Excel Output ]
+      <div class="hero-flow">
+        <div class="hero-flow-item">
+          <img src="/QBO%20Screenshot.png" alt="Your QBO data">
+          <span class="hero-flow-label">Your QBO data</span>
+        </div>
+        <div class="hero-flow-arrow">→</div>
+        <div class="hero-flow-item">
+          <img src="/Acorn%20Screenshot.png" alt="Extract with Acorn">
+          <span class="hero-flow-label">Extract with Acorn</span>
+        </div>
+        <div class="hero-flow-arrow">→</div>
+        <div class="hero-flow-item">
+          <img src="/dashboard%20screenshot.png" alt="Dashboard-ready">
+          <span class="hero-flow-label">Dashboard-ready</span>
+        </div>
       </div>
     </div>
   </div>
@@ -731,6 +813,10 @@ footer a:hover { color: var(--white); }
         <p>Get a multi-tab Excel workbook with formatted financials, GL summaries, flat files, aging reports, and built-in validation. Ready to use.</p>
       </div>
     </div>
+    <div class="how-preview">
+      <img src="/Acorn%20Screenshot.png" alt="Acorn extraction interface">
+      <p class="how-preview-caption">The Acorn extraction interface — connect, configure, download.</p>
+    </div>
   </div>
 </section>
 
@@ -744,8 +830,7 @@ footer a:hover { color: var(--white); }
     <div class="flow-diagram">
       <div class="flow-step">
         <div class="flow-image">
-          <!-- Replace with screenshot of messy QBO P&L report -->
-          [ QBO Report ]
+          <img src="/QBO%20Screenshot.png" alt="QBO report">
         </div>
         <h4>QBO Report</h4>
         <p>Pretty to look at. Impossible to analyze.</p>
@@ -753,8 +838,7 @@ footer a:hover { color: var(--white); }
       <div class="flow-arrow">→</div>
       <div class="flow-step">
         <div class="flow-image">
-          <!-- Replace with screenshot of Acorn IS GL Summary flat file -->
-          [ Flat File ]
+          <img src="/flat%20file.png" alt="Acorn flat file output">
         </div>
         <h4>Flat File</h4>
         <p>One row per account, per period. Every field clean and queryable.</p>
@@ -762,8 +846,7 @@ footer a:hover { color: var(--white); }
       <div class="flow-arrow">→</div>
       <div class="flow-step">
         <div class="flow-image">
-          <!-- Replace with screenshot of a dashboard / pivot / custom report -->
-          [ Your Analysis ]
+          <img src="/dashboard%20screenshot.png" alt="Dashboard built on Acorn data">
         </div>
         <h4>Your Analysis</h4>
         <p>Pivot tables. Dashboards. Custom reports. Whatever you need, in minutes.</p>
