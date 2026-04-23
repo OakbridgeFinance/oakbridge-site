@@ -726,6 +726,65 @@ footer a:hover { color: var(--white); }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
+
+/* ── ACORN CONTACT ───────────────────────────────── */
+.acorn-contact {
+  padding: 100px 32px;
+  background: var(--cream);
+  border-top: 1px solid rgba(7,57,60,0.06);
+}
+.acorn-contact-inner {
+  max-width: 640px; margin: 0 auto;
+  text-align: center;
+}
+.acorn-contact h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 32px; font-weight: 700;
+  color: var(--dark-teal);
+  margin-bottom: 12px;
+}
+.acorn-contact p.lead {
+  font-size: 17px; color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+.acorn-contact-form {
+  display: flex; flex-direction: column; gap: 14px;
+  text-align: left;
+}
+.acorn-contact-form input,
+.acorn-contact-form textarea {
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  color: var(--text-dark);
+  background: var(--white);
+  border: 1px solid rgba(7,57,60,0.12);
+  border-radius: 8px;
+  padding: 14px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+.acorn-contact-form input:focus,
+.acorn-contact-form textarea:focus {
+  outline: none;
+  border-color: var(--mid-teal);
+  box-shadow: 0 0 0 3px rgba(51,126,141,0.12);
+}
+.acorn-contact-form textarea { min-height: 140px; resize: vertical; }
+.acorn-contact-form button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px; font-weight: 600;
+  color: var(--white);
+  background: var(--terracotta);
+  border: none;
+  border-radius: 6px;
+  padding: 14px 28px;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.15s;
+  align-self: center;
+}
+.acorn-contact-form button:hover { background: #b56c52; transform: translateY(-1px); }
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QLMD4TF7F9"></script>
 <script>
@@ -822,7 +881,7 @@ footer a:hover { color: var(--white); }
 <section class="how-it-works" id="how-it-works">
   <div class="section-inner">
     <div class="section-label">How It Works</div>
-    <div class="section-title">How it works.</div>
+    <div class="section-title">Connect, configure, download.</div>
     <div class="steps">
       <div class="step">
         <div class="step-number">01</div>
@@ -1069,8 +1128,8 @@ footer a:hover { color: var(--white); }
 <section class="about-oakbridge">
   <div class="about-inner">
     <div class="about-eyebrow">About Oakbridge</div>
-    <h2 class="about-headline">Built by a fractional CFO,<br>for fractional CFOs.</h2>
-    <p class="about-body">Acorn was built at Oakbridge Finance to solve the reporting problems we ran into with our own clients. Oakbridge is a fractional CFO and accounting firm serving growing businesses with strategic finance, reporting, and advisory services — from month-end close through capital raises.</p>
+    <h2 class="about-headline">Built by a fractional CFO practice,<br>for fractional CFOs.</h2>
+    <p class="about-body">Acorn was built at Oakbridge Finance to solve the reporting problems we kept running into with our own clients. Oakbridge is a fractional CFO and accounting practice serving growing businesses with strategic finance, outsourced accounting, and transaction advisory.</p>
     <div class="about-actions">
       <a href="https://oakbridgefinance.com" class="btn-outline">Learn About Oakbridge</a>
       <a href="/#contact" class="btn-primary">Book a Consult</a>
@@ -1079,65 +1138,6 @@ footer a:hover { color: var(--white); }
 </section>
 
 <!-- ACORN CONTACT -->
-<style>
-.acorn-contact {
-  padding: 100px 32px;
-  background: var(--cream);
-  border-top: 1px solid rgba(7,57,60,0.06);
-}
-.acorn-contact-inner {
-  max-width: 640px; margin: 0 auto;
-  text-align: center;
-}
-.acorn-contact h2 {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 32px; font-weight: 700;
-  color: var(--dark-teal);
-  margin-bottom: 12px;
-}
-.acorn-contact p.lead {
-  font-size: 17px; color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 40px;
-}
-.acorn-contact-form {
-  display: flex; flex-direction: column; gap: 14px;
-  text-align: left;
-}
-.acorn-contact-form input,
-.acorn-contact-form textarea {
-  font-family: 'Source Sans 3', sans-serif;
-  font-size: 15px;
-  color: var(--text-dark);
-  background: var(--white);
-  border: 1px solid rgba(7,57,60,0.12);
-  border-radius: 8px;
-  padding: 14px 16px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  width: 100%;
-}
-.acorn-contact-form input:focus,
-.acorn-contact-form textarea:focus {
-  outline: none;
-  border-color: var(--mid-teal);
-  box-shadow: 0 0 0 3px rgba(51,126,141,0.12);
-}
-.acorn-contact-form textarea { min-height: 140px; resize: vertical; }
-.acorn-contact-form button {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 15px; font-weight: 600;
-  color: var(--white);
-  background: var(--terracotta);
-  border: none;
-  border-radius: 6px;
-  padding: 14px 28px;
-  cursor: pointer;
-  letter-spacing: 0.02em;
-  transition: background 0.2s, transform 0.15s;
-  align-self: center;
-}
-.acorn-contact-form button:hover { background: #b56c52; transform: translateY(-1px); }
-</style>
 <section class="acorn-contact" id="contact">
   <div class="acorn-contact-inner">
     <h2>Questions about Acorn?</h2>
